@@ -1,7 +1,6 @@
-// import logo from '../logo.svg';
 import '../App.css';
 import PokedexImg from '../Images/pokedex.png'
-import { useState, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import axios from 'axios';
 
 const pokeUrl = 'https://pokeapi.co/api/v2/pokemon/';
@@ -9,51 +8,42 @@ const pokeUrl = 'https://pokeapi.co/api/v2/pokemon/';
 
 function Pokedex() {
 
-    // const [pokemonSearch, setPokemonSearch] = useState("");
     let pokemonSearch = "";
     const [pokemonNumber, setPokemonNumber] = useState(1);
     const [pokemonGif, setPokemonGif] = useState("");
 
-    async function getPokemon() {
-        const pokemon = await axios.get(pokeUrl+pokemonNumber)
-        if (pokemon) {
-          if (pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default) {
-            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default)
-          } else {
-            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].front_default)
-          }
+    const getPokemon = useCallback(async (numberVal) => {
+      const num = pokemonNumber + numberVal > 1 ? pokemonNumber + numberVal : pokemonNumber;
+      const pokemon = await axios.get(pokeUrl+num);
+      if (pokemon) {
+        if (pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default) {
+          setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default);
+        } else {
+          setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].front_default);
         }
-    }
+      }
+      setPokemonNumber(num);
+    }, [pokemonNumber]);
+
     async function getPokemonByString() {
       if(pokemonSearch.length) {
-        const pokemon = await axios.get(pokeUrl+pokemonSearch.toLowerCase())
+        const pokemon = await axios.get(pokeUrl+pokemonSearch.toLowerCase());
         if (pokemon) {
           if (pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default) {
-            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default)
+            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].animated.front_default);
           } else {
-            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].front_default)
+            setPokemonGif(pokemon.data.sprites.versions['generation-v']['black-white'].front_default);
           }
-          setPokemonNumber(pokemon.data.id)
+          setPokemonNumber(pokemon.data.id);
         }
       }   
     }
-    function nextPokemon() {
-        setPokemonNumber(pokemonNumber+1)
-    }
-
-    function previousPokemon() {
-        if (pokemonNumber > 1) {
-          setPokemonNumber(pokemonNumber-1)
-        }
-    }
 
     function onInputchange(e) {
-      pokemonSearch = e.target.value
+      pokemonSearch = e.target.value;
     }
 
-    useEffect(() => {
-        getPokemon()
-    }, [pokemonNumber]);
+    if (pokemonGif.length === 0) getPokemon();
 
   return (
     <div className="App">
@@ -65,8 +55,8 @@ function Pokedex() {
         <div className='crossCenter' onClick={getPokemonByString}>
             <div className='crossTop'></div>
             <div className='crossBottom'></div>
-            <div className='crossLeft' onClick={previousPokemon}></div>
-            <div className='crossRight' onClick={nextPokemon}></div>
+            <div className='crossLeft' onClick={() => getPokemon(-1)}></div>
+            <div className='crossRight' onClick={() => getPokemon(1)}></div>
             <div className='crossCircle'></div>
         </div>
       </header>
