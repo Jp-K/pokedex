@@ -1,38 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@300;400;500;600;700;800&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Oxanium', cursive;
+}
+
 .App {
   text-align: center;
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 60vmin;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+body {
+  text-align: center;
+  background: linear-gradient(to bottom, lightgreen, white);
+  min-height: 100vh;
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  margin-top: 5%;
+  display: inline-block;
   font-size: calc(10px + 2vmin);
   color: white;
+  position: relative;
 }
 
-.App-link {
-  color: #61dafb;
+.pokemon_image {
+  position: absolute;
+  bottom: 55%;
+  left: 50%;
+  transform: translate(-65%, 20%);
+  height: 15%;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.crossCenter{
+  background-color: #333333;
+  width: 4vh;
+  height: 4vh;
+  position: absolute;
+  transform: translate(600%, -320%);
+}
+
+.crossCircle{
+  background-color: #292929;
+  width: 2vh;
+  height: 2vh;
+  position: absolute;
+  border-radius: 100%;
+  transform: translate(50%, 50%);
+}
+
+.crossTop{
+  background-color: #333333;
+  width: 4vh;
+  height: 4vh;
+  position: absolute;
+  border-radius: 15%;
+  transform: translate(0%, -95%);
+}
+
+.crossBottom{
+  background-color: #333333;
+  width: 4vh;
+  height: 4vh;
+  position: absolute;
+  border-radius: 15%;
+  transform: translate(0%, 95%);
+}
+
+.crossLeft{
+  background-color: #333333;
+  width: 4vh;
+  height: 4vh;
+  position: absolute;
+  border-radius: 15%;
+  transform: translate(-95%, 0%);
+}
+
+.crossRight{
+  background-color: #333333;
+  width: 4vh;
+  height: 4vh;
+  position: absolute;
+  border-radius: 15%;
+  transform: translate(95%, 0%);
+}
+
+.inputPokemon {
+  position: absolute;
+  bottom: 44%;
+  left: 55%;
+  transform: translate(-60%, 200%);
+  height: 5%;
+  width: 70%;
+
+
+  padding: 4%;
+  outline: none;
+  border: 2px solid #333;
+  border-radius: 5px;
+  font-weight: 600;
+  color: #3a444d;
+  font-size: clamp(8px, 5vw, 1rem);
+  box-shadow: -3px 4px 0 #888, -5px 7px 0 #333
 }
