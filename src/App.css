@@ -110,3 +110,13 @@ body {
   font-size: clamp(8px, 5vw, 1rem);
   box-shadow: -3px 4px 0 #888, -5px 7px 0 #333
 }
+
+.pokemonDescription {
+  position: absolute;
+  bottom: 44%;
+  left: 55%;
+  transform: translate(-60%, 50%);
+  height: 5%;
+  width: 70%;
+  color: black;
+}
